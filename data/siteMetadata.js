@@ -7,7 +7,7 @@ const siteMetadata = {
   language: 'fr-fr',
   theme: 'system', // system, dark or light
   siteUrl: 'https://www.independence-dev.com',
-  siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
+  siteRepo: 'https://github.com/geof-dev/blog-independence-dev',
   siteLogo: '/static/images/logo.png',
   socialBanner: '/static/images/twitter-card.png',
   mastodon: 'https://mastodon.social/@mastodonuser',
@@ -44,7 +44,7 @@ const siteMetadata = {
     // Please add your .env file and modify it according to your selection
     //provider: 'emailoctopus',
   },
-  comments: {
+  /*comments: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
     // Select a provider and use the environment variables associated to it
@@ -73,7 +73,7 @@ const siteMetadata = {
       // This corresponds to the `data-lang="en"` in giscus's configurations
       lang: 'en',
     },
-  },
+  },*/
   search: {
     provider: 'kbar', // kbar or algolia
     kbarConfig: {
