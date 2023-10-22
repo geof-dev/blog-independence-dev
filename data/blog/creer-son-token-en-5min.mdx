@@ -3,141 +3,84 @@ title: CRÉER son TOKEN en 5 MINUTES
 date: '2022-01-01'
 tags: ['Web3', 'Solidity']
 draft: false
-summary: 'How to derive the OLS Estimator with matrix notation and a tour of math typesetting using markdown with the help of KaTeX.'
+summary: Tu veux créer ton propre Token, mais tu ne sais pas comment ? Avec des standards qui ont émergé comme ERC20, créer son propre Token sur la Blockchain est devenu très simple et nous allons voir comment. Même plus besoin d'être développeur si tu suis le bon tutoriel :)
 ---
 
-# Introduction
+## Le standard ERC20
 
-Parsing and display of math equations is included in this blog template. Parsing of math is enabled by `remark-math` and `rehype-katex`.
-KaTeX and its associated font is included in `_document.js` so feel free to use it on any page.
-[^footnote]
+L'ERC20 introduit une norme pour les jetons fongibles, en d'autres termes, ils ont une propriété qui fait que chaque jeton est exactement le même (en type et en valeur) qu'un autre jeton. Par exemple, un jeton ERC20 se comporte exactement comme l'ETH, ce qui signifie qu'un jeton est et sera toujours égal à tous les autres jetons.
 
-[^footnote]: For the full list of supported TeX functions, check out the [KaTeX documentation](https://katex.org/docs/supported.html)
+## Le Smart Contract ERC20
 
-Inline math symbols can be included by enclosing the term between the `$` symbol.
+Vous pouvez retrouver le code ERC20 d'OpenZeppelin ici :
+https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol
 
-Math code blocks are denoted by `$$`.
+### Les fonctions
 
-If you intend to use the `$` sign instead of math, you can escape it (`\$`), or specify the HTML entity (`&dollar;`) [^2]
-
-Inline or manually enumerated footnotes are also supported. Click on the links above to see them in action.
-
-[^2]: \$10 and &dollar;20.
-
-# Deriving the OLS Estimator
-
-Using matrix notation, let $n$ denote the number of observations and $k$ denote the number of regressors.
-
-The vector of outcome variables $\mathbf{Y}$ is a $n \times 1$ matrix,
-
-```tex
-\mathbf{Y} = \left[\begin{array}
-  {c}
-  y_1 \\
-  . \\
-  . \\
-  . \\
-  y_n
-\end{array}\right]
+```solidity
+function name() public view returns (string)
+function symbol() public view returns (string)
+function decimals() public view returns (uint8)
+function totalSupply() public view returns (uint256)
+function balanceOf(address _owner) public view returns (uint256 balance)
+function transfer(address _to, uint256 _value) public returns (bool success)
+function transferFrom(address _from, address _to, uint256 _value) public returns (bool success)
+function approve(address _spender, uint256 _value) public returns (bool success)
+function allowance(address _owner, address _spender) public view returns (uint256 remaining)
 ```
 
-$$
-\mathbf{Y} = \left[\begin{array}
-{c}
-y_1 \\
-. \\
-. \\
-. \\
-y_n
-\end{array}\right]
-$$
+## L'IDE Remix
 
-The matrix of regressors $\mathbf{X}$ is a $n \times k$ matrix (or each row is a $k \times 1$ vector),
+Remix est un IDE en ligne pour Smart Contracts. Il va nous permettre d'éditer le code Solidity et de pouvoir déployer simplement notre smart contract.
 
-```latex
-\mathbf{X} = \left[\begin{array}
-  {ccccc}
-  x_{11} & . & . & . & x_{1k} \\
-  . & . & . & . & .  \\
-  . & . & . & . & .  \\
-  . & . & . & . & .  \\
-  x_{n1} & . & . & . & x_{nn}
-\end{array}\right] =
-\left[\begin{array}
-  {c}
-  \mathbf{x}'_1 \\
-  . \\
-  . \\
-  . \\
-  \mathbf{x}'_n
-\end{array}\right]
+Pour y accéder : https://remix.ethereum.org
+
+### Créer le Workspace
+
+Remix permet de créer directement un projet OpenZeppelin ERC20.
+
+![Workspace Remix](/static/images/creer-son-token-en-5min/remix.png)
+
+Cela a dû vous créer le fichier suivant :
+
+```solidity:contracts/SampleERC20.sol
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+/**
+ * @title SampleERC20
+ * @dev Create a sample ERC20 standard token
+ */
+contract SampleERC20 is ERC20 {
+
+    constructor(string memory tokenName, string memory tokenSymbol) ERC20(tokenName, tokenSymbol) {}
+}
 ```
 
-$$
-\mathbf{X} = \left[\begin{array}
-{ccccc}
-x_{11} & . & . & . & x_{1k} \\
-. & . & . & . & .  \\
-. & . & . & . & .  \\
-. & . & . & . & .  \\
-x_{n1} & . & . & . & x_{nn}
-\end{array}\right] =
-\left[\begin{array}
-{c}
-\mathbf{x}'_1 \\
-. \\
-. \\
-. \\
-\mathbf{x}'_n
-\end{array}\right]
-$$
+Ce Smart Contract va créer le token ERC20 avec le nom et symbol du token passe dans le constructeur.
 
-The vector of error terms $\mathbf{U}$ is also a $n \times 1$ matrix.
+### Compiler le code
 
-At times it might be easier to use vector notation. For consistency, I will use the bold small x to denote a vector and capital letters to denote a matrix. Single observations are denoted by the subscript.
+Se rendre sur le troisième onglet à gauche et compiler le Smart Contract "SampleERC20.sol"
 
-## Least Squares
+![Compiler Smart Contract](/static/images/creer-son-token-en-5min/compile.png)
 
-**Start**:
-$$y_i = \mathbf{x}'_i \beta + u_i$$
+### Déployer le smart contract
 
-**Assumptions**:
+- Choisir "Injected Provider" pour utiliser un de vos wallet MetaMask.
+- Sélectionner le bon Smart Contract (SampleERC20).
+- Remplir le nom et le symbol du token puis cliquer sur transact.
 
-1. Linearity (given above)
-2. $E(\mathbf{U}|\mathbf{X}) = 0$ (conditional independence)
-3. rank($\mathbf{X}$) = $k$ (no multi-collinearity i.e. full rank)
-4. $Var(\mathbf{U}|\mathbf{X}) = \sigma^2 I_n$ (Homoskedascity)
+![Deployer Smart Contract](/static/images/creer-son-token-en-5min/deploy.png)
 
-**Aim**:
-Find $\beta$ that minimises the sum of squared errors:
+## Voir la vidéo :
 
-$$
-Q = \sum_{i=1}^{n}{u_i^2} = \sum_{i=1}^{n}{(y_i - \mathbf{x}'_i\beta)^2} = (Y-X\beta)'(Y-X\beta)
-$$
-
-**Solution**:
-Hints: $Q$ is a $1 \times 1$ scalar, by symmetry $\frac{\partial b'Ab}{\partial b} = 2Ab$.
-
-Take matrix derivative w.r.t $\beta$:
-
-```tex
-\begin{aligned}
-  \min Q           & = \min_{\beta} \mathbf{Y}'\mathbf{Y} - 2\beta'\mathbf{X}'\mathbf{Y} +
-  \beta'\mathbf{X}'\mathbf{X}\beta \\
-                   & = \min_{\beta} - 2\beta'\mathbf{X}'\mathbf{Y} + \beta'\mathbf{X}'\mathbf{X}\beta \\
-  \text{[FOC]}~~~0 & =  - 2\mathbf{X}'\mathbf{Y} + 2\mathbf{X}'\mathbf{X}\hat{\beta}                  \\
-  \hat{\beta}      & = (\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{Y}                              \\
-                   & = (\sum^{n} \mathbf{x}_i \mathbf{x}'_i)^{-1} \sum^{n} \mathbf{x}_i y_i
-\end{aligned}
-```
-
-$$
-\begin{aligned}
-\min Q           & = \min_{\beta} \mathbf{Y}'\mathbf{Y} - 2\beta'\mathbf{X}'\mathbf{Y} +
-\beta'\mathbf{X}'\mathbf{X}\beta \\
-& = \min_{\beta} - 2\beta'\mathbf{X}'\mathbf{Y} + \beta'\mathbf{X}'\mathbf{X}\beta \\
-\text{[FOC]}~~~0 & =  - 2\mathbf{X}'\mathbf{Y} + 2\mathbf{X}'\mathbf{X}\hat{\beta}                  \\
-\hat{\beta}      & = (\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{Y}                              \\
-& = (\sum^{n} \mathbf{x}_i \mathbf{x}'_i)^{-1} \sum^{n} \mathbf{x}_i y_i
-\end{aligned}
-$$
+<iframe
+    width="100%"
+    height="400"
+    src="https://www.youtube.com/embed/E34HjgTa_tk"
+    title="CREER son TOKEN en 5 MINUTES (ERC20)"
+></iframe>

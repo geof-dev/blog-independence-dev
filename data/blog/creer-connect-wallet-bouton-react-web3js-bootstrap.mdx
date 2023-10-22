@@ -1,0 +1,106 @@
+---
+title: Créer un bouton "connect wallet" avec React + Web3.js + Bootstrap
+date: '2022-07-13'
+tags: ['Web3', 'React']
+draft: false
+summary: La première étape de la création d'une dApp est de pouvoir y connecter son Wallet (le plus souvent MetaMask). Je te montre comment le faire dans ton projet React avec la librairie Web3.js.
+---
+
+## Configuration
+
+Je vais vous apprendre à créer un bouton qui interagira avec MetaMask pour permettre à l'utilisateur de connecter son portefeuille sur votre application.
+
+```shell
+npx create-react-app wallet-connect
+cd wallet-connect
+```
+
+Vérifiez la version de react-scripts dans le package.json, la version doit être 4.0.3 pour être compatible avec web3.js.
+
+Exécutez cette ligne de commande pour installer tout ce dont nous avons besoin :
+
+```shell
+yarn add web3 react-bootstrap bootstrap react-bootstrap-icons
+```
+
+Ajouter cette ligne dans index.js :
+
+```js:index.js
+import 'bootstrap/dist/css/bootstrap.css';
+```
+
+## Fichier final
+
+```js:App.js
+import React from 'react';
+import Web3 from "web3";
+import { Button } from 'react-bootstrap';
+import { Wallet } from 'react-bootstrap-icons';
+import './App.css';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      web3: null,
+      currentAccount: null,
+      ethBalance: 0,
+      networkId: null
+    };
+  }
+
+  componentDidMount = async () => {
+    this.connectWalletHandler();
+  };
+
+  connectWalletHandler = async () => {
+    try {
+      const web3 = new Web3(Web3.givenProvider);
+      this.setState({ web3: web3});
+      const accounts = await web3.eth.requestAccounts();
+      if (accounts.length !== 0) {
+        const networkId = await web3.eth.net.getId();
+        const ethBalance = await web3.eth.getBalance(accounts[0]);
+        this.setState({currentAccount: accounts[0], ethBalance: Web3.utils.fromWei(ethBalance), networkId: networkId});
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  connectedWallet = () => {
+    return (
+      <div>
+        <p>{parseFloat(this.state.ethBalance).toFixed(4)} ETH</p>
+        <p>{this.state.currentAccount.slice(0,5)+'...'+this.state.currentAccount.slice(38,42)}<br />WALLET CONNECTED</p>
+      </div>
+    )
+  }
+
+  connectWalletButton = () => {
+    return (
+      <Button variant="outline-primary" onClick={() => this.connectWalletHandler()}><Wallet />&ensp;Connect wallet</Button>
+    )
+  }
+
+  render() {
+    return (
+      <div className="App">
+         {this.state.currentAccount ? this.connectedWallet() : this.connectWalletButton()}
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+## Voir la vidéo :
+
+<iframe
+    width="100%"
+    height="400"
+    src="https://www.youtube.com/embed/X5Nuyw7PGfE"
+    title="Connecter un Wallet à son application React avec Web3.js"
+></iframe>
