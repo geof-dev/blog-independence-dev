@@ -1,0 +1,132 @@
+---
+title: Hardhat, Déploiement et Contrat Upgradable 👷
+date: '2022-07-14'
+tags: ['Web3', 'Hardhat']
+draft: false
+summary: Déployer ses Smart Contracts de manière professionnelle est important pour pouvoir les maintenir correctement. Hardhat est la solution parfaite pour ça !
+---
+
+## Installation & configuration
+
+Pour installer et initialiser un projet HardHat, utiliser ces commandes :
+```shell
+npm install hardhat
+npx hardhat
+```
+Vous aurez un fichier "Greeter.sol" dans le dossier "contracts".
+Vous pouvez compiler ce Smart Contract avec :
+```shell
+npx hardhat compile
+```
+Dans le fichier "hardhat.config.js", nous définirons le chemin des artifacts (Smart Contracts compilés) et la Blockchain BNB Smart chain testnet pour les déploiements futurs.
+
+```js:hardhat.config.js
+paths: {
+ artifacts: './src/artifacts',
+},
+networks: {
+ bsctestnet:
+ {
+  url: "https://speedy-nodes-nyc.moralis.io/c96c432c75339d23af5d7364/bsc/testnet",
+  chainId: 97,
+  accounts: [secret.key]
+ }
+}
+```
+
+Dans le fichier "secret.json", je mets la clé privée de mon wallet.
+
+```json:secret.json
+{
+ "key": "myPrivateKey"
+}
+```
+
+## Déploiement d'un smart contract
+
+Pour déployer le Smart Contract, nous allons devoir créer un script dans le dossier "scripts". Nous avons le "sample-script.js".
+
+```js:sample-script.js
+const hre = require("hardhat");
+async function main() {
+ const Greeter = await hre.ethers.getContractFactory("Greeter");
+ const greeter = await Greeter.deploy("Hello, Hardhat!");
+ await greeter.deployed();
+ console.log("Greeter deployed to:", greeter.address);
+}
+```
+Utilisez cette commande pour le lancer :
+```shell
+npx hardhat run scripts/sample-script.js --network bsctestnet
+```
+
+## Intéraction avec le smart contract
+
+Maintenant, nous avons déployé le Smart Contract et nous avons l'adresse sur la Blockchain, donc nous pouvons interagir avec le Smart Contract.
+Exemple de script pour définir une nouvelle valeur a la variable "greet" :
+
+```js
+const hre = require("hardhat");
+async function main() {
+ const GreeterContract = await ethers.getContractFactory("Greeter");
+ const Greeter = await GreeterContract.attach("0xC9f9f144f58d590B136D526d43E9eDE8aa24Cd91");
+ const greet = await Greeter.setGreeting("Nouvelle valeur");
+ const newValue = await Greeter.greet();
+ console.log(newValue);
+}
+```
+## Smart Contract Upgradable
+
+Un Smart Contract est immuable mais nous pouvons utiliser un proxy pour résoudre ce problème. HardHat fournit tous les outils pour le faire facilement.
+
+### Déploiement avec proxy
+
+Script pour déployer un Smart Contract avec un proxy.
+
+```js
+const { ethers, upgrades } = require("hardhat");
+async function main() {
+ const Greeter = await ethers.getContractFactory("Greeter");
+ const greeter = await upgrades.deployProxy(Greeter, ["Hello, Hardhat!"]);
+ await greeter.deployed();
+ console.log("Greeter deployed to:", greeter.address);
+}
+```
+
+### Upgrade avec proxy
+
+Script pour changer l'implémentation du Smart Contract derrière le proxy. (Avoir l'adresse du proxy).
+
+```js
+const { ethers, upgrades } = require("hardhat");
+async function main() {
+const Greeter = await ethers.getContractFactory("Greeter");
+const greeter = await upgrades.upgradeProxy("0xC9f9f144f58d590B136D526d43E9eDE8aa24Cd91", Greeter);
+console.log("Greeter upgraded");
+}
+```
+
+## Vérifier Smart Contract
+
+Pour vérifier un Smart Contract sur l'explorateur (bscscan.com), nous devons installer le package "@nomiclabs/hardhat-etherscan" et obtenir une clé API sur BscScan.
+
+```json
+etherscan: {
+ apiKey: {
+  bsctestnet: "yourApiKey"
+ }
+}
+```
+
+Et il vous suffit de lancer cette commande :
+```shell
+npx hardhat v
+```
+
+## Voir la vidéo :
+
+<YoutubeFacade
+    videoId="mvf6u-EIyNw"
+    title="Hardhat : Deployement et Contrat Upgradable👷"
+/>
+

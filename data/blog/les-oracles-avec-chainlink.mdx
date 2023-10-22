@@ -1,0 +1,51 @@
+---
+title: Données hors Blockchain avec les Oracles Chainlink 🔮
+date: '2022-09-21'
+tags: ['Web3']
+draft: false
+summary: Les Oracles permettent d'alimenter vos Smart Contracts avec des données disponibles hors Blockchain. Nous allons nous intéresser plus particulièrement aux Data Feeds de Chainlink.
+---
+
+## Explication des Data Feeds
+Les Data Feeds de Chainlink sont le moyen le plus rapide de connecter vos contrats intelligents aux données du monde réel telles que les prix des actifs.
+
+Une des utilisations des flux de données est de récupérer les dernières données de prix d'un actif en un seul appel et d'utiliser ces données soit sur la chaîne dans un contrat intelligent, soit hors chaîne dans une autre application de votre choix.
+
+## Liste des Smart Contracts
+
+Chainlink propose une liste d'adresses de Smart Contracts pour les Tokens les plus connus sur chaque BlockChain.
+
+Disponible ici : https://docs.chain.link/docs/reference-contracts/
+
+Par exemple sur la BNB Chain on peut avoir l'adresse du Smart Contract pour l'Oracle qui nous renverra des informations sur le BNB.
+
+🟢 BNB/USD BNB Crypto 0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE
+
+## Exemple
+
+Voici le Smart Contract pour récupérer le prix du BNB en USD sur la BNB Chain.
+
+La fonction bnbPrice() va retourner le prix du BNB en USD avec 8 décimals.
+
+```solidity:oracle.sol
+pragma solidity ^0.8.0;
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+contract oracle {
+    AggregatorV3Interface internal priceFeed;
+    constructor(){
+        priceFeed = AggregatorV3Interface(0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE);
+    }
+    function bnbPrice() public view returns (int256){
+        (,int256 price, , , ) = priceFeed.latestRoundData();
+        return price;
+    }
+}
+```
+
+## Voir la vidéo :
+
+<YoutubeFacade
+    videoId="A03RxCqwd14"
+    title="Données hors Blockchain avec les Oracles Chainlink 🔮"
+/>
+
