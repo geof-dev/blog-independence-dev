@@ -2,11 +2,11 @@
 title: MetaMask Auth with Laravel Breeze + React + ethers.js v6
 date: '2023-02-21'
 tags: ['Web3', 'Laravel', 'React', 'Ethers.js']
-draft: true
+draft: false
 summary: En tant que développeur PHP et intéressé par le Web3, je voulais voir comment on pouvait mélanger Web3 et Laravel. D'où ce petit projet qui permet à un utilisateur de s'authentifier via son wallet en toute sécurité.
 ---
 
-## Laravel Configuration + Database
+## Configuration Laravel + Base de données
 
 Nous allons commencer par créer un projet Laravel avec le Starter Kit Breeze/React
 
@@ -19,7 +19,7 @@ composer require laravel/breeze --dev
 php artisan breeze:install react
 ```
 
-I used Laravel sail to deploy my app in a Docker container.
+J'utilise Laravel Sail pour déployer mon application dans un conteneur Docker.
 
 ```shell
 composer require laravel/sail --dev
@@ -27,15 +27,15 @@ php artisan sail:install
 ./vendor/bin/sail up
 ```
 
-Now, we will add a column in the user table to store Ethereum addresses.
+Maintenant, nous allons ajouter une colonne dans la table utilisateur pour stocker les adresses Ethereum.
 
-For this, you can create a migration.
+Pour cela, vous pouvez créer une migration.
 
 ```shell
 php artisan make:migration alter_user_table --table=users
 ```
 
-How look like this file :
+À quoi ressemble ce fichier :
 
 ```php
 return new class extends Migration
@@ -55,26 +55,27 @@ $table->dropColumn('eth_address');
 };
 ```
 
-Uncomment the file /database/seeders/DatabaseSeeder.php
+Retirer les commentaires dans le fichier /database/seeders/DatabaseSeeder.php
 
-And let’s launch migrate to deploy the tables and seed to fill the tables.
+Lançons la migration pour déployer les tables et les remplir.
 
 ```shell
 env DB_HOST=127.0.0.1 php artisan migrate
 env DB_HOST=127.0.0.1 php artisan db:seed
 ```
 
-## Login with Metamask
+## Connexion avec MetaMask
 
-We need ethers library to communicate with Metamask, let’s use the last version (v6).
+Nous avons besoin de la bibliothèque Ethers.js pour communiquer avec Metamask, utilisons la dernière version (v6).
+
 ```shell
 npm install ethers
 npm run dev
 ```
 
-Create a new component for the MetaMask login button (/resources/js/Components/LoginMetamaskButton.jsx)
+Créons un nouveau composant pour le bouton de connexion MetaMask
 
-```php
+```jsx:/resources/js/Components/LoginMetamaskButton.jsx
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { router } from '@inertiajs/react';
@@ -107,17 +108,17 @@ export default function LoginMetamaskButton() {
 }
 ```
 
-You can add this button where you want with this line :
+Vous pouvez ajouter le bouton où vous le souhaitez avec cette ligne :
 
-```html
+```jsx
 <LoginMetamaskButton />
 ```
 
 ![Login Page](/static/images/metamask-auth-laravel-breeze-react-ethers/login.webp)
 
-It’s ok for the front, let’s create the Laravel route in /routes/auth.php file and the middleware ‘guest’
+C'est ok pour la partie front, créons la route et le middleware 'guest'
 
-```php
+```php:/routes/auth.php
 Route::post('metamask-login', [MetamaskAuthController::class, 'authenticate'])
     ->name('metamask.login');
 ```
@@ -141,20 +142,22 @@ class MetamaskAuthController extends Controller
 ```
 
 ## Add signature security
-Now your users can use their wallet to authenticate, but there is a huge security breach. An attacker can simply use a post request with the Ethereum address to access of the user's backend.
+Vos utilisateurs peuvent désormais utiliser leur portefeuille pour s'authentifier, mais il existe une énorme faille de sécurité.
+
+Un attaquant peut simplement utiliser une requête POST avec l'adresse Ethereum pour accéder au backend de l'utilisateur.
 
 ![Schema de l'authentification](/static/images/metamask-auth-laravel-breeze-react-ethers/schema.webp)
 
-We require two library to decode the signature with PHP.
+Nous avons besoin de deux bibliothèques pour décoder la signature avec PHP.
 
 ```shell
 composer require kornrunner/keccak
 composer require simplito/elliptic-php
 ```
 
-New front
+Le composant React final :
 
-```js
+```jsx:/resources/js/Components/LoginMetamaskButton.jsx
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { router } from '@inertiajs/react';
@@ -191,16 +194,16 @@ export default function LoginMetamaskButton() {
 }
 ```
 
-New route
+La nouvelle route à ajouter :
 
-```php
+```php:/routes/auth.php
  Route::get('metamask-signature', [MetamaskAuthController::class, 'signature'])
         ->name('metamask.signature');
 ```
 
-New controller code
+Le code du controller final :
 
-```php
+```php:/app/Http/Controllers/Auth/MetamaskAuthController.php
 class MetamaskAuthController extends Controller
 {
     public function authenticate(Request $request): RedirectResponse {
@@ -254,8 +257,9 @@ class MetamaskAuthController extends Controller
 }
 ```
 
-## Allow the user to add/modify Ethereum address
-A last feature to code is to let the user be able to add or modify his Ethereum address.
+## Autoriser l'utilisateur à ajouter/modifier l'adresse Ethereum
+
+Une dernière fonctionnalité à coder est de permettre à l’utilisateur de pouvoir ajouter ou modifier son adresse Ethereum.
 
 ```php:/app/Http/Requests/ProfileUpdateRequest.php
 'eth_address' => ['string', 'max:255'],
@@ -276,7 +280,7 @@ A last feature to code is to let the user be able to add or modify his Ethereum 
 </div>
 ```
 
-You can find all the code here : https://github.com/geof-dev/laravel-metamask-auth
+Vous trouverez le code complet de ce projet ici : https://github.com/geof-dev/laravel-metamask-auth
 
 ## Voir la vidéo :
 
