@@ -37,7 +37,7 @@ php artisan make:migration alter_user_table --table=users
 
 À quoi ressemble ce fichier :
 
-```php:2023_02_21_145101_alter_user_table.php
+```php:2023_02_21_alter_user_table.php
 return new class extends Migration
 {
 public function up(): void
@@ -55,7 +55,7 @@ $table->dropColumn('eth_address');
 };
 ```
 
-Retirer les commentaires dans le fichier /database/seeders/DatabaseSeeder.php
+Retirer les commentaires dans le fichier `DatabaseSeeder.php` situé dans le dossier `/database/seeders`
 
 Lançons la migration pour déployer les tables et les remplir.
 
@@ -73,7 +73,7 @@ npm install ethers
 npm run dev
 ```
 
-Créons un nouveau composant pour le bouton de connexion MetaMask (/resources/js/Components/LoginMetamaskButton.jsx)
+Créons un nouveau composant pour le bouton de connexion MetaMask `LoginMetamaskButton.jsx` dans le dossier `/resources/js/Components`
 
 ```jsx:LoginMetamaskButton.jsx
 import InputError from '@/Components/InputError';
@@ -116,12 +116,17 @@ Vous pouvez ajouter le bouton où vous le souhaitez avec cette ligne :
 
 ![Login Page](/static/images/metamask-auth-laravel-breeze-react-ethers/login.webp)
 
-C'est ok pour la partie front, créons la route (/routes/auth.php) et le middleware 'guest' (/app/Http/Controllers/Auth/MetamaskAuthController.php)
+C'est ok pour la partie front, créons la route pour la connexion.
+Ajouter ces lignes dans le fichier `auth.php` du dossier `/routes`
 
 ```php:auth.php
 Route::post('metamask-login', [MetamaskAuthController::class, 'authenticate'])
     ->name('metamask.login');
 ```
+
+Notre controller Laravel aura donc la fonction `authenticate`.
+
+Vous pouvez créer un fichier `MetamaskAuthController.php` au niveau de `/app/Http/Controllers/Auth`
 
 ```php:MetamaskAuthController.php
 class MetamaskAuthController extends Controller
@@ -155,7 +160,7 @@ composer require kornrunner/keccak
 composer require simplito/elliptic-php
 ```
 
-Le composant React final (/resources/js/Components/LoginMetamaskButton.jsx) :
+Le composant React final :
 
 ```jsx:LoginMetamaskButton.jsx
 import InputError from '@/Components/InputError';
@@ -194,14 +199,14 @@ export default function LoginMetamaskButton() {
 }
 ```
 
-La nouvelle route à ajouter (/routes/auth.php) :
+La nouvelle route à ajouter :
 
 ```php:auth.php
  Route::get('metamask-signature', [MetamaskAuthController::class, 'signature'])
         ->name('metamask.signature');
 ```
 
-Le code du controller final (/app/Http/Controllers/Auth/MetamaskAuthController.php) :
+Le code du controller final :
 
 ```php:MetamaskAuthController.php
 class MetamaskAuthController extends Controller
@@ -261,13 +266,13 @@ class MetamaskAuthController extends Controller
 
 Une dernière fonctionnalité à coder est de permettre à l’utilisateur de pouvoir ajouter ou modifier son adresse Ethereum.
 
-Ajouter au fichier /app/Http/Requests/ProfileUpdateRequest.php :
+Ajouter au fichier `ProfileUpdateRequest.php` du dossier `/app/Http/Requests` ces lignes :
 
 ```php:ProfileUpdateRequest.php
 'eth_address' => ['string', 'max:255'],
 ```
 
-Et ajouter aussi les lignes suivantes dans le fichier /resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx
+Et ajouter aussi les lignes suivantes dans le fichier `UpdateProfileInformationForm.jsx` se situant dans `/resources/js/Pages/Profile/Partials`
 
 ```jsx:UpdateProfileInformationForm.jsx
 <div>
