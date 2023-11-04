@@ -1,0 +1,98 @@
+---
+title: Optimiser les vidéos intégrées (YouTube, etc..) sur son site
+date: '2023-11-04'
+tags: ['Next.js', 'React', 'SEO']
+draft: false
+summary: Comment améliorer les performances de son site avant la technique d'image Facade pour vos videos intégrées. Nous allons créer un composant React/Next.js
+---
+## La problématique
+
+L'une des méthodes les plus simples pour intégrer des vidéos sur votre site web est d'utiliser les vidéos intégrées fournies par des plateformes telles que Youtube, Vimeo, etc.
+
+Des difficultés surviennent lorsqu'on essaie d'optimiser son site web. En effet, l'intégration de vidéos peut impacter négativement les indicateurs de performance du site. De plus, des outils tels que Lighthouse ou PageSpeed peuvent indiquer un excès de JavaScript inutilisé dû à ces intégrations.
+
+Une solution pour optimiser les vidéos intégrées consiste à charger initialement uniquement une image avec une icône de lecture au lieu de la vidéo complète. Puis, lorsque l'utilisateur clique sur cette icône, l'image de façade et l'icône de lecture sont remplacées par la vidéo intégrée réelle.
+
+## Avant Après
+```diff-js:mon-article.mdx
+## Voir la vidéo :
+-  <iframe
+-    src="https://www.youtube.com/embed/mEf9uyYtMWQ?si=Y636CTWTpuznQg4D"
+-    title="YouTube video player"
+-    allowfullscreen>
+-  </iframe>
++  <YoutubeFacade
++    videoId="mEf9uyYtMWQ"
++    title="Next JS: Optimiser les vidéos intégrées (YouTube, etc..) sur son site"
++  />
+```
+![Score avant apres](/static/images/youtube-facade-nextjs-optimisation/before_after_score.png)
+
+## Le code du composant YoutubeFacade
+
+```typescript:YoutubeFacade.tsx
+'use client'
+
+import { useState } from 'react'
+import Image from 'next/image'
+
+const YoutubeFacade = ({ videoId, title }) => {
+  const [showVideo, setShowVideo] = useState(false)
+
+  const handleClick = () => {
+    setShowVideo(true)
+  }
+
+  return (
+    <div className="relative">
+      {!showVideo && (
+        <button
+          className="relative cursor-pointer"
+          onClick={handleClick}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === 'Space') {
+              handleClick()
+            }
+          }}
+        >
+          <Image
+            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+            alt={title}
+            width={1280}
+            height={720}
+          />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+            <Image
+              src={'/static/images/youtube-logo.png'}
+              alt={'YouTube Logo'}
+              width={100}
+              height={100}
+            />
+          </div>
+        </button>
+      )}
+      {showVideo && (
+        <div className="aspect-ratio-16/9">
+          <iframe
+            width="100%"
+            height="400"
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`}
+            title={title}
+            loading="lazy"
+            allowFullScreen
+          ></iframe>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default YoutubeFacade
+```
+
+## Voir la vidéo :
+
+<YoutubeFacade
+    videoId="mEf9uyYtMWQ"
+    title="Next JS: Optimiser les vidéos intégrées (YouTube, etc..) sur son site"
+/>
