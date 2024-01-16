@@ -35,7 +35,7 @@ const Subscribe = () => {
           <div className="pb-1 text-lg font-semibold text-gray-800 dark:text-gray-100">
             Abonne-toi
           </div>
-          <form className="flex flex-col sm:flex-row" onSubmit={handleSubmit} >
+          <form className="flex flex-col sm:flex-row" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email-input">
                 <span className="sr-only">Adresse e-mail</span>
@@ -65,13 +65,13 @@ const Subscribe = () => {
       </div>
       <p className="mt-1 text-center text-sm text-gray-500">
         Pour finaliser votre inscription,
-         <br/>
+         <br />
         veuillez confirmer l'e-mail que vous avez reçu de
         <a
-         href="https://formations.independencedev-dev.com/subscribe"
-         target="_blank"
-         rel="noopener noreferrer"
-         className="text-primary-500 hover:underline"
+          href="https://formations.independencedev-dev.com/subscribe"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary-500 hover:underline"
         >
           Grumroad
         </a>

@@ -13,8 +13,7 @@ export default function NotFound() {
           Désolé, nous n'avons pas pu trouver cette page.
         </p>
         <p className="mb-8">
-          Mais ne vous inquiétez pas,
-          vous pouvez trouver bien d’autres choses sur notre page d’accueil.
+          Mais ne vous inquiétez pas, vous pouvez trouver bien d’autres choses sur notre page d’accueil.
         </p>
         <Link
           href="/"
