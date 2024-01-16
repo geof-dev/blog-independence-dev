@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 
 const Subscribe = () => {
   const [email, setEmail] = useState('')
@@ -10,7 +10,10 @@ const Subscribe = () => {
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ seller_id: '4612423157976', email: email })
+      body: new URLSearchParams({
+        seller_id: '4612423157976',
+        email: email
+      })
     }
     try {
       const response = await fetch(
@@ -37,25 +40,25 @@ const Subscribe = () => {
           </div>
           <form
             className="flex flex-col sm:flex-row"
-            onSubmit={handleSubmit}
+            onSubmit={ handleSubmit }
           >
             <div>
               <label htmlFor="email-input">
                 <span className="sr-only">Adresse e-mail</span>
                   <input
                     autoComplete="email"
-                    className="focus:ring-primary-600 w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 dark:bg-black"
+                    className="w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-primary-600 focus:ring-2 dark:bg-black"
                     id="email-input"
                     placeholder="Votre Email"
                     required
                     type="email"
                     name="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={ (e) => setEmail(e.target.value) }
                   />
               </label>
             </div>
-            <div className="mt-2 flex w-full rounded-md shadow-sm sm:mt-0 sm:ml-3">
+            <div className="mt-2 flex w-full rounded-md shadow-sm sm:ml-3 sm:mt-0">
               <button
                 className="bg-primary-500 w-full rounded-md py-2 px-4 font-medium text-white sm:py-0 hover:bg-primary-700 dark:hover:bg-primary-400 focus:ring-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black"
                 type="submit"
@@ -66,8 +69,10 @@ const Subscribe = () => {
           </form>
         </div>
       </div>
-      <p className="text-sm text-center text-gray-500 mt-1">
-        Pour finaliser votre inscription,<br/>veuillez confirmer l'e-mail que vous avez reçu de <a href="https://formations.independencedev-dev.com/subscribe" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline">Grumroad</a>.
+      <p className="mt-1 text-center text-sm text-gray-500">
+        Pour finaliser votre inscription,
+        <br/>
+        veuillez confirmer l'e-mail que vous avez reçu de <a href="https://formations.independencedev-dev.com/subscribe" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline">Grumroad</a>.
       </p>
     </>
   )
