@@ -13,17 +13,15 @@ const Subscribe = () => {
       body: new URLSearchParams({
         seller_id: '4612423157976',
         email: email,
-      },)
+      }),
     }
     try {
-      const response = await fetch(
-        'https://app.gumroad.com/follow_from_embed_form', options
-      )
+      const response = await fetch('https://app.gumroad.com/follow_from_embed_form', options)
       if (response.ok) {
         const data = await response.json()
         toast.success('Vérifiez votre boîte email :)')
       } else {
-        toast.error('Échec de l\'abonnement')
+        toast.error("Échec de l'abonnement")
       }
     } catch (error) {
       console.error('Error:', error.message)
@@ -37,16 +35,13 @@ const Subscribe = () => {
           <div className="pb-1 text-lg font-semibold text-gray-800 dark:text-gray-100">
             Abonne-toi
           </div>
-          <form
-          className="flex flex-col sm:flex-row"
-          onSubmit={ handleSubmit }
-          >
+          <form className="flex flex-col sm:flex-row" onSubmit={ handleSubmit } >
             <div>
               <label htmlFor="email-input">
                 <span className="sr-only">Adresse e-mail</span>
                   <input
                   autoComplete="email"
-                  className="w-72 rounded-md px-4 dark:bg-black focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600"
+                  className="w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
                   id="email-input"
                   placeholder="Votre Email"
                   required
@@ -71,7 +66,10 @@ const Subscribe = () => {
       <p className="mt-1 text-center text-sm text-gray-500">
         Pour finaliser votre inscription,
         <br/>
-        veuillez confirmer l'e-mail que vous avez reçu de <a href="https://formations.independencedev-dev.com/subscribe" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline">Grumroad</a>.
+        veuillez confirmer l'e-mail que vous avez reçu de
+        <a href="https://formations.independencedev-dev.com/subscribe" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline">
+          Grumroad
+        </a>.
       </p>
     </>
   )
