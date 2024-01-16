@@ -65,7 +65,7 @@ const Subscribe = () => {
       </div>
       <p className="mt-1 text-center text-sm text-gray-500">
         Pour finaliser votre inscription,
-         <br />
+        <br />
         veuillez confirmer l'e-mail que vous avez reçu de
         <a
           href="https://formations.independencedev-dev.com/subscribe"
