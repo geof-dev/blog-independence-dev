@@ -35,11 +35,11 @@ const Subscribe = () => {
           <div className="pb-1 text-lg font-semibold text-gray-800 dark:text-gray-100">
             Abonne-toi
           </div>
-          <form className="flex flex-col sm:flex-row" onSubmit={ handleSubmit } >
+          <form className="flex flex-col sm:flex-row" onSubmit={handleSubmit} >
             <div>
               <label htmlFor="email-input">
                 <span className="sr-only">Adresse e-mail</span>
-                  <input
+                <input
                   autoComplete="email"
                   className="w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
                   id="email-input"
@@ -48,14 +48,14 @@ const Subscribe = () => {
                   type="email"
                   name="email"
                   value={email}
-                  onChange={ (e) => setEmail(e.target.value) }
-                  />
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </label>
             </div>
             <div className="mt-2 flex w-full rounded-md shadow-sm sm:ml-3 sm:mt-0">
               <button
-              className="w-full rounded-md bg-primary-500 px-4 py-2 font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 dark:ring-offset-black dark:hover:bg-primary-400 sm:py-0"
-              type="submit"
+                className="w-full rounded-md bg-primary-500 px-4 py-2 font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 dark:ring-offset-black dark:hover:bg-primary-400 sm:py-0"
+                type="submit"
               >
                 S'inscrire
               </button>
@@ -65,11 +65,17 @@ const Subscribe = () => {
       </div>
       <p className="mt-1 text-center text-sm text-gray-500">
         Pour finaliser votre inscription,
-        <br/>
+         <br/>
         veuillez confirmer l'e-mail que vous avez reçu de
-        <a href="https://formations.independencedev-dev.com/subscribe" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline">
+        <a
+         href="https://formations.independencedev-dev.com/subscribe"
+         target="_blank"
+         rel="noopener noreferrer"
+         className="text-primary-500 hover:underline"
+        >
           Grumroad
-        </a>.
+        </a>
+        .
       </p>
     </>
   )
