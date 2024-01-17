@@ -2,23 +2,21 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
-const Subscribe = () => {
+const Subscribe2 = () => {
   const [email, setEmail] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const options = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        seller_id: '4612423157976',
-        email: email,
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
     }
     try {
-      const response = await fetch('https://app.gumroad.com/follow_from_embed_form', options)
+      const response = await fetch('/api/subscribe', options)
       if (response.ok) {
         const data = await response.json()
+        console.log('bien recu')
         console.log(data)
         toast.success('Vérifiez votre boîte email :)')
       } else {
@@ -60,7 +58,7 @@ const Subscribe = () => {
                 className="w-full rounded-md bg-primary-500 px-4 py-2 font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 dark:ring-offset-black dark:hover:bg-primary-400 sm:py-0"
                 type="submit"
               >
-                S'inscrire
+                Recevoir le Kit&nbsp;🎁
               </button>
             </div>
           </form>
@@ -84,4 +82,4 @@ const Subscribe = () => {
   )
 }
 
-export default Subscribe
+export default Subscribe2
