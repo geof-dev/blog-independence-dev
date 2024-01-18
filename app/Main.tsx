@@ -29,7 +29,6 @@ export default function Home({ posts }) {
         <div className="h-48 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:h-auto lg:w-5/12">
           <Image
             src={'/static/images/hero.png'}
-            loading="lazy"
             alt="Hero image"
             width={2560}
             height={1440}
