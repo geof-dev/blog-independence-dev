@@ -1,0 +1,62 @@
+---
+title: Adieu BigNumber, Bienvenue BigInt (Ethers.js v6)
+date: '2024-01-18'
+tags: ['Ethers.js', 'Blockchain', 'JavaScript']
+draft: false
+summary: Ethers.js, la bibliothèque JavaScript populaire pour interagir avec la blockchain Ethereum, a subi une refonte majeure avec la version 6. L'un des changements les plus notables est le passage de l'utilisation de la bibliothèque externe BigNumber à celle du type natif BigInt de JavaScript ES2020.
+---
+
+## L'histoire de BigNumber dans Ethers.js
+
+Ethers.js a longtemps utilisé la bibliothèque externe BigNumber pour gérer les opérations sur les nombres de grande taille, souvent rencontrées dans le contexte des transactions Ethereum. BigNumber a été une solution robuste et largement adoptée pour manipuler des entiers de taille arbitraire avec une précision élevée.
+
+Cependant, avec l'évolution des normes JavaScript, notamment l'ajout du type natif BigInt dans ES2020, les développeurs d'Ethers.js ont décidé de faire évoluer la bibliothèque pour tirer parti de cette fonctionnalité native.
+
+## Les avantages de BigInt
+
+BigInt, introduit dans JavaScript ES2020, permet de représenter des entiers arbitrairement grands sans la perte de précision que l'on peut rencontrer avec les nombres à virgule flottante. En migant vers BigInt, Ethers.js s'aligne sur une approche plus native et simplifie son code en utilisant les fonctionnalités intégrées du langage.
+
+Outre la simplicité, BigInt offre des performances améliorées, car il est directement pris en charge par le moteur JavaScript, évitant ainsi le besoin d'une bibliothèque externe pour les opérations sur les grands entiers.
+
+## Changements clés dans Ethers.js v6
+
+Dans Ethers.js v6, l'utilisation explicite de la bibliothèque externe BigNumber n'est plus nécessaire. Auparavant, dans Ethers.js v5, vous deviez importer BigNumber comme suit :
+
+```javascript:ethersv5.js
+const { BigNumber } = require('ethers');
+```
+
+Désormais, avec l'utilisation de BigInt, cela n'est plus nécessaire. Les opérations sur les grands entiers peuvent être effectuées directement en utilisant les types natifs JavaScript.
+
+### Avant (Ethers.js v5) :
+```javascript:ethersv5.js
+const { BigNumber } = require('ethers');
+const bn = BigNumber.from("1000000");
+```
+### Maintenant (Ethers.js v6) :
+```javascript:ethersv5.js
+const bn = 1000000n; // ou const bn = BigInt("1000000");
+```
+
+Les opérations sur les nombres ont également été simplifiées dans Ethers.js v6.
+
+### Avant (Ethers.js v5) :
+```javascript:ethersv5.js
+const result = bn.add(bn2.mul(8));
+```
+### Maintenant (Ethers.js v6) :
+```javascript:ethersv5.js
+const result = bn + (bn2 * 8);
+```
+Les comparaisons ont également été simplifiées avec l'utilisation de BigInt.
+### Avant (Ethers.js v5) :
+```javascript:ethersv5.js
+const isEqual = bn.eq(bn2);
+const isLessThan = bn.lt(bn2);
+```
+### Maintenant (Ethers.js v6) :
+```javascript:ethersv5.js
+const isEqual = bn === bn2;
+const isLessThan = bn < bn2;
+```
+En conclusion, la transition vers Ethers.js v6 apporte une simplification significative en adoptant le type BigInt natif de JavaScript. Cela renforce la compatibilité avec les normes du langage et offre des avantages en termes de performances. Les développeurs travaillant avec Ethers.js doivent être conscients de ces changements et adapter leurs applications en conséquence pour tirer pleinement parti des améliorations introduites dans la version 6.
