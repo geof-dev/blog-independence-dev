@@ -1,7 +1,22 @@
 'use client'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-
+const MsgError = () => {
+  return (
+    <>
+      Il y a un problème :(
+      <br />
+      <a
+        href="https://formations.independence-dev.com/subscribe"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary-500 underline"
+      >
+        Essaye sur Gumroad
+      </a>
+    </>
+  )
+}
 const Subscribe2 = () => {
   const [email, setEmail] = useState('')
 
@@ -17,10 +32,10 @@ const Subscribe2 = () => {
       if (response.ok) {
         toast.success('Vérifiez votre boîte email :)')
       } else {
-        toast.error("Échec de l'abonnement")
+        toast.error(MsgError)
       }
     } catch (error) {
-      toast.error("Échec de l'abonnement")
+      toast.error(MsgError)
       console.error('Error:', error.message)
     }
   }
@@ -60,12 +75,12 @@ const Subscribe2 = () => {
           </form>
         </div>
       </div>
-      <p className="mt-1 text-center text-sm text-gray-500">
+      <p className="mt-1 text-center text-sm text-gray-500 dark:text-gray-400">
         Pour finaliser votre inscription,
         <br />
         veuillez confirmer l'e-mail que vous avez reçu de&nbsp;
         <a
-          href="https://formations.independencedev-dev.com/subscribe"
+          href="https://formations.independence-dev.com/subscribe"
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary-500 hover:underline"

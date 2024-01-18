@@ -2,13 +2,39 @@ import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
-import NewsletterForm from 'pliny/ui/NewsletterForm'
+import Subscribe from '@/components/Subscribe'
+import Image from 'next/image'
 
 const MAX_DISPLAY = 5
 
 export default function Home({ posts }) {
   return (
     <>
+      <section className="flex flex-col justify-between gap-6 border-b-2 border-dotted border-gray-200 pb-5 dark:border-gray-700 sm:gap-10 md:gap-16 lg:flex-row">
+        <div className="flex flex-col justify-center sm:text-center lg:text-left xl:w-5/12">
+          <p className="mb-2 font-semibold text-primary-500 md:mb-4 md:text-lg xl:text-xl">
+            Gagnez en Liberté
+          </p>
+          <h1 className="mb-8 text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl md:mb-12 md:text-6xl">
+            Explorez le Web3
+          </h1>
+          <p className="mb-8 leading-relaxed text-gray-500 dark:text-gray-400 xl:text-lg">
+            Chez Independence Dev, plongez dans le monde du développement Web3 pour renforcer votre
+            indépendance financière et découvrir de nouvelles opportunités. Préparez-vous à
+            maîtriser les technologies émergentes et à gagner en liberté dans l'univers en constante
+            évolution du Web3.
+          </p>
+          <Subscribe />
+        </div>
+        <div className="h-48 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:h-auto xl:w-5/12">
+          <Image
+            src="https://images.unsplash.com/photo-1618004912476-29818d81ae2e?auto=format&q=75&fit=crop&w=1000"
+            loading="lazy"
+            alt="Hero image"
+            className="h-full w-full object-cover object-center"
+          />
+        </div>
+      </section>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pb-8 pt-6 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
@@ -79,11 +105,6 @@ export default function Home({ posts }) {
           >
             Tous les articles &rarr;
           </Link>
-        </div>
-      )}
-      {siteMetadata.newsletter?.provider && (
-        <div className="flex items-center justify-center pt-4">
-          <NewsletterForm title="Abonnez-vous à la newsletter" />
         </div>
       )}
     </>

@@ -2,6 +2,22 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
+const MsgError = () => {
+  return (
+    <>
+      Il y a un problème :(
+      <br />
+      <a
+        href="https://formations.independence-dev.com/subscribe"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary-500 underline"
+      >
+        Essaye sur Gumroad
+      </a>
+    </>
+  )
+}
 const Subscribe = () => {
   const [email, setEmail] = useState('')
 
@@ -9,24 +25,18 @@ const Subscribe = () => {
     e.preventDefault()
     const options = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        seller_id: '4612423157976',
-        email: email,
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
     }
     try {
-      const response = await fetch('https://app.gumroad.com/follow_from_embed_form', options)
+      const response = await fetch('/api/subscribe', options)
       if (response.ok) {
-        const data = await response.json()
-        console.log(data)
         toast.success('Vérifiez votre boîte email :)')
       } else {
-        console.log(response)
-        toast.error("Échec de l'abonnement")
+        toast.error(MsgError)
       }
     } catch (error) {
-      toast.error("Échec de l'abonnement")
+      toast.error(MsgError)
       console.error('Error:', error.message)
     }
   }
@@ -66,7 +76,7 @@ const Subscribe = () => {
           </form>
         </div>
       </div>
-      <p className="mt-1 text-center text-sm text-gray-500">
+      <p className="mt-1 text-center text-sm text-gray-500 dark:text-gray-400">
         Pour finaliser votre inscription,
         <br />
         veuillez confirmer l'e-mail que vous avez reçu de&nbsp;
