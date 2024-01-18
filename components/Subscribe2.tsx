@@ -15,12 +15,8 @@ const Subscribe2 = () => {
     try {
       const response = await fetch('/api/subscribe', options)
       if (response.ok) {
-        const data = await response.json()
-        console.log('bien recu')
-        console.log(data)
         toast.success('Vérifiez votre boîte email :)')
       } else {
-        console.log(response)
         toast.error("Échec de l'abonnement")
       }
     } catch (error) {

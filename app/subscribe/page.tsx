@@ -17,13 +17,13 @@ export default function SubscribePage() {
             Plongez dans le développement de contrats intelligents.
           </p>
           <p className="mt-4 flex items-center justify-center text-lg text-gray-900 dark:text-gray-100">
-            💡 Idées de Projets Web3
+            💡 15 Idées de Projets Web3
           </p>
           <p className="flex items-center justify-center text-base text-gray-500 dark:text-gray-400">
             Stimulez votre créativité avec 15 idées innovantes de projets Web3.
           </p>
           <p className="mt-4 flex items-center justify-center text-lg text-gray-900 dark:text-gray-100">
-            📚 Accès Exclusif à mon canal Telegram
+            📚 Accès à mon canal Telegram
           </p>
           <p className="flex items-center justify-center text-base text-gray-500 dark:text-gray-400">
             Je partage les dernières tendances et des conseils pertinents du monde Web3.

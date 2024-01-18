@@ -15,14 +15,8 @@ export async function POST(request: Request) {
         email: email,
       }),
     })
-    if (!response.ok) {
-      const errorData = await response.json()
-      console.error('Error from Gumroad:', errorData)
-      return new Response(JSON.stringify({ error: 'Gumroad Error' }), { status: response.status })
-    }
-
-    const data = await response.json()
-    return Response.json(data, { status: response.status })
+    console.log(response)
+    return Response.json('ok', { status: response.status })
   } catch (error) {
     console.error('Error:', error.message)
     return Response.json({ error: 'Internal Server Error' }, { status: 500 })
