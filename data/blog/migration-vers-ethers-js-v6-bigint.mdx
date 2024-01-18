@@ -34,7 +34,7 @@ const { BigNumber } = require('ethers');
 const bn = BigNumber.from("1000000");
 ```
 ### Maintenant (Ethers.js v6) :
-```javascript:ethersv5.js
+```javascript:ethersv6.js
 const bn = 1000000n; // ou const bn = BigInt("1000000");
 ```
 
@@ -45,7 +45,7 @@ Les opérations sur les nombres ont également été simplifiées dans Ethers.js
 const result = bn.add(bn2.mul(8));
 ```
 ### Maintenant (Ethers.js v6) :
-```javascript:ethersv5.js
+```javascript:ethersv6.js
 const result = bn + (bn2 * 8);
 ```
 Les comparaisons ont également été simplifiées avec l'utilisation de BigInt.
@@ -55,7 +55,7 @@ const isEqual = bn.eq(bn2);
 const isLessThan = bn.lt(bn2);
 ```
 ### Maintenant (Ethers.js v6) :
-```javascript:ethersv5.js
+```javascript:ethersv6.js
 const isEqual = bn === bn2;
 const isLessThan = bn < bn2;
 ```
