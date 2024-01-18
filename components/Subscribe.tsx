@@ -42,7 +42,7 @@ const Subscribe = () => {
   }
 
   return (
-    <>
+    <div>
       <div className="flex items-center justify-center pt-4">
         <div>
           <div className="pb-1 text-lg font-semibold text-gray-800 dark:text-gray-100">
@@ -90,7 +90,7 @@ const Subscribe = () => {
         </a>
         .
       </p>
-    </>
+    </div>
   )
 }
 
