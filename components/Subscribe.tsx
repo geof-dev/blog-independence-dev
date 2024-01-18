@@ -54,7 +54,7 @@ const Subscribe = () => {
                 <span className="sr-only">Adresse e-mail</span>
                 <input
                   autoComplete="email"
-                  className="w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+                  className="rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
                   id="email-input"
                   placeholder="Votre Email"
                   required

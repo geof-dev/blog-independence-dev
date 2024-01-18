@@ -10,8 +10,8 @@ const MAX_DISPLAY = 5
 export default function Home({ posts }) {
   return (
     <>
-      <section className="flex flex-col justify-between gap-6 border-b-2 border-dotted border-gray-200 pb-5 dark:border-gray-700 sm:gap-10 md:gap-16 lg:flex-row">
-        <div className="flex flex-col justify-center sm:text-center lg:text-left xl:w-5/12">
+      <section className="flex flex-col justify-between border-b-2 border-dotted border-gray-200 pb-5 dark:border-gray-700 lg:flex-row">
+        <div className="flex flex-col justify-center sm:text-center lg:w-5/12 lg:text-left">
           <p className="mb-2 font-semibold text-primary-500 md:mb-4 md:text-lg xl:text-xl">
             Gagnez en Liberté
           </p>
@@ -26,11 +26,13 @@ export default function Home({ posts }) {
           </p>
           <Subscribe />
         </div>
-        <div className="h-48 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:h-auto xl:w-5/12">
+        <div className="h-48 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:h-auto lg:w-5/12">
           <Image
-            src="https://images.unsplash.com/photo-1618004912476-29818d81ae2e?auto=format&q=75&fit=crop&w=1000"
+            src={'/static/images/hero.png'}
             loading="lazy"
             alt="Hero image"
+            width={2560}
+            height={1440}
             className="h-full w-full object-cover object-center"
           />
         </div>
