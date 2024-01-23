@@ -80,7 +80,7 @@ const Subscribe2 = () => {
         <br />
         veuillez confirmer l'e-mail que vous avez reçu de&nbsp;
         <a
-          href="https://formations.independence-dev.com/subscribe"
+          href="https://formations.independence.dev/subscribe"
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary-500 hover:underline"
