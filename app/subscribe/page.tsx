@@ -23,6 +23,12 @@ export default function SubscribePage() {
             Stimulez votre créativité avec 15 idées innovantes de projets Web3.
           </p>
           <p className="mt-4 flex items-center justify-center text-lg text-gray-900 dark:text-gray-100">
+            📦 Mon projet starter kit Web3
+          </p>
+          <p className="flex items-center justify-center text-base text-gray-500 dark:text-gray-400">
+            Utilise le code de mon starter kit pour commencer tes projets.
+          </p>
+          <p className="mt-4 flex items-center justify-center text-lg text-gray-900 dark:text-gray-100">
             📚 Accès à mon canal Telegram
           </p>
           <p className="flex items-center justify-center text-base text-gray-500 dark:text-gray-400">
@@ -36,7 +42,7 @@ export default function SubscribePage() {
           </p>
         </div>
       </div>
-      <Subscribe2 />
+      <Subscribe2/>
     </>
   )
 }
