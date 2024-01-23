@@ -42,7 +42,7 @@ export default function SubscribePage() {
           </p>
         </div>
       </div>
-      <Subscribe2/>
+      <Subscribe2 />
     </>
   )
 }
