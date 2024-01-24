@@ -14,7 +14,7 @@ const siteMetadata = {
   email: 'independence.dev.pro@gmail.com',
   github: 'https://github.com/IndependenceDEV',
   twitter: 'https://twitter.com/geof_dev',
-  facebook: 'https://www.facebook.com/100087485765670',
+  facebook: 'https://www.facebook.com/independencedev',
   threads: 'https://www.threads.net/@independencedev',
   youtube: 'https://www.youtube.com/c/IndependenceDEV',
   linkedin: 'https://www.linkedin.com/company/independence-dev',
