@@ -23,6 +23,7 @@ const YoutubeFacade = ({ videoId, title }) => {
           }}
         >
           <Image
+            className="my-0"
             src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
             alt={title}
             width={1280}
