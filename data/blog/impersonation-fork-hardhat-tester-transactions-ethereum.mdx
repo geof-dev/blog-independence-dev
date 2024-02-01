@@ -1,0 +1,102 @@
+---
+title: Impersonation et Fork avec Hardhat : Tester les Transactions Ethereum
+date: '2024-02-01'
+tags: ['Web3', 'Hardhat', 'Ethers.js]
+draft: false
+summary: Explorez l'efficacité de l'impersonation et du fork avec Hardhat pour tester et simuler des transactions Ethereum localement, offrant ainsi une solution robuste pour le développement de contrats intelligents.
+---
+
+## Introduction
+
+Lors du développement de contrats intelligents sur Ethereum, il est crucial de tester le code de manière approfondie avant de le déployer sur le réseau principal. L'utilisation de forks en local avec Hardhat offre une solution pratique pour simuler le réseau Ethereum tout en conservant la flexibilité nécessaire pour effectuer des transactions sur n'importe quel compte, y compris des portefeuilles notables tels que celui de Vitalik Buterin.
+
+## Configuration de Hardhat pour le Fork en Local
+
+Avant de commencer, assurez-vous d'avoir installé Hardhat et d'avoir configuré votre projet. Créez un fichier `hardhat.config.js` avec le contenu suivant :
+
+```js:hardhat.config.js
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config()
+
+module.exports = {
+    networks: {
+        hardhat: {
+            forking: {
+                url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`
+            },
+            chainId: 1
+        }
+    },
+    solidity: "0.8.24"
+};
+```
+
+Cette configuration utilise le module Hardhat Toolbox et une clé Infura pour créer un fork local du réseau principal Ethereum.
+
+## Script de Transfert avec Impersonation
+
+Maintenant, créons un script (`scripts/transfer.js`) pour effectuer une transaction en utilisant la fonction `hardhat_impersonateAccount` :
+
+```js:scripts/transfer.js
+const hre = require("hardhat")
+const ethers = require("ethers")
+
+async function transfer() {
+    const vitalik_address = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
+    const addressTo = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
+
+    // Impersonation du compte Vitalik
+    await hre.network.provider.request({
+        method: "hardhat_impersonateAccount",
+        params: [vitalik_address],
+    });
+
+    const provider = hre.ethers.provider;
+    const signer = await hre.ethers.getSigner(vitalik_address);
+
+    console.log(
+        "Solde du compte Vitalik avant la transaction:",
+        ethers.formatEther(await provider.getBalance(vitalik_address))
+    );
+
+    const tx = {
+        to: addressTo,
+        value: ethers.parseEther("80"),
+    };
+
+    const recieptTx = await signer.sendTransaction(tx);
+    await recieptTx.wait();
+
+    console.log(`Transaction réussie avec le hash: ${recieptTx.hash}`);
+    console.log(
+        "Solde du compte Vitalik après la transaction:",
+        ethers.formatEther(await provider.getBalance(vitalik_address))
+    );
+}
+
+transfer()
+    .then(() => process.exit(0))
+    .catch((error) => {
+        console.error(error);
+        process.exit(1);
+    });
+```
+
+## Exécution du Fork en Local
+Pour lancer votre blockchain locale, exécutez la commande suivante :
+```
+npx hardhat node
+```shell
+Ensuite, pour tester votre script, utilisez la commande :
+```shell
+npx hardhat run scripts/transfer.js --network localhost
+```
+En suivant ces étapes, vous pouvez facilement simuler des transactions Ethereum locales en utilisant un fork avec Hardhat, ce qui est essentiel pour le développement et le test de contrats intelligents avant de les déployer sur le réseau principal.
+
+## Voir la vidéo :
+
+<YoutubeFacade
+  videoId="9ubS_45oXws"
+  title="Comment contrôler n'importe quel wallet sur la Blockchain !"
+/>
+
