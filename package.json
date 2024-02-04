@@ -16,6 +16,7 @@
     "@wistia/react-embeds": "^0.0.20",
     "autoprefixer": "^10.4.13",
     "contentlayer": "0.3.4",
+    "encoding": "^0.1.13",
     "esbuild": "0.18.11",
     "github-slugger": "^1.4.0",
     "gray-matter": "^4.0.2",

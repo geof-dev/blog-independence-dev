@@ -3,7 +3,7 @@ import 'css/tailwind.css'
 import { Space_Grotesk } from 'next/font/google'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
-import {ToastContainer} from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const space_grotesk = Space_Grotesk({
