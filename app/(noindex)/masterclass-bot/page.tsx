@@ -16,7 +16,7 @@ export default function MasterclassBotPage() {
       <section className="mx-auto max-w-3xl px-4 pb-4 pt-10 font-sans sm:px-6 xl:max-w-5xl xl:px-0">
         <div className="flex h-screen flex-col font-sans">
           <h1 className="text-center text-3xl font-extrabold leading-9 tracking-tight text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
-            Masterclass Robot de Trading  🚀
+            Masterclass Robot de Trading 🚀
           </h1>
           <div className="mt-20 ">
             <WistiaVideo hashedId="0ywzfei2fh" />
