@@ -45,7 +45,7 @@ const Subscribe2 = () => {
       <div className="flex items-center justify-center pt-4">
         <div>
           <div className="pb-1 text-lg font-semibold text-gray-800 dark:text-gray-100">
-            Abonne-toi
+            Entre ton email pour recevoir la Masterclass
           </div>
           <form className="flex flex-col sm:flex-row" onSubmit={handleSubmit}>
             <div>
@@ -69,14 +69,14 @@ const Subscribe2 = () => {
                 className="w-full rounded-md bg-primary-500 px-4 py-2 font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 dark:ring-offset-black dark:hover:bg-primary-400 sm:py-0"
                 type="submit"
               >
-                Recevoir le Kit&nbsp;🎁
+                Obtenir maintenant
               </button>
             </div>
           </form>
         </div>
       </div>
       <p className="mt-1 text-center text-sm text-gray-500 dark:text-gray-400">
-        Pour finaliser votre inscription,
+        Pour recevoir votre accès,
         <br />
         veuillez confirmer l'e-mail que vous avez reçu de&nbsp;
         <a
