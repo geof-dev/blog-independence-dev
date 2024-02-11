@@ -23,10 +23,10 @@ export default function MasterclassBotPage() {
           </div>
           <div className="mt-6 flex justify-end rounded-md shadow-sm">
             <a
-              href="https://formations.independence.dev/l/crypto-trading/off50eur"
+              href="https://go.independence.dev/dev3-academy"
               className="rounded-md bg-green-500 px-4 py-2 text-3xl font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 "
             >
-              50€ offert sur la formation complète →
+              Récupère le code sur Dev3 Academy →
             </a>
           </div>
           <p className="text-md mt-24 text-center">
